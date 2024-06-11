@@ -19,4 +19,8 @@ public class Book {
     public String book_description;
     public String[] book_genre;
     public double price;
+
+    public String[] getBookGenre(){
+        return book_genre;
+    }
 }

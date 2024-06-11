@@ -5,6 +5,7 @@ import genspark.pbc.OnlineBookstore.Repository.BookDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,9 +31,27 @@ public class OnlineBookServiceImpl implements OnlineBookService{
     }
 
     @Override
+    public List<Book> getBookByGenre(String genre) {
+            List<Book> allBooks = this.bookDAO.findAll(); // Get all the books
+            List<Book> matchingBooks = new ArrayList<>(); // Stores the books that matches the genre
+            for (Book book : allBooks) {
+                // For each book we look at all the genre
+                for (String bookGenre : book.getBookGenre()) {
+                    // If genre matches, add to list
+                    if (bookGenre.toLowerCase().contains(genre.toLowerCase())) {
+                        matchingBooks.add(book);
+                        break; // Exit inner loop once a match is found
+                    }
+                }
+            }
+            return matchingBooks;
+    }
+
+    @Override
     public Book getBookById(long bookId) {
         Optional<Book> t = this.bookDAO.findById(bookId);
         Book book = null;
+        // if book exist, return it
         if (t.isPresent()){
             book=t.get();
         } else {
