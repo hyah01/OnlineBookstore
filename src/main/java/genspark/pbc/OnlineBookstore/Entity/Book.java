@@ -1,15 +1,18 @@
 package genspark.pbc.OnlineBookstore.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+// List of query that can be use in BookDAO;
+@NamedQueries({
+        @NamedQuery(name = "Book.findByName", query = "SELECT b FROM Book b WHERE LOWER(b.book_name) LIKE LOWER(CONCAT('%', :title, '%'))"),
+        @NamedQuery(name = "Book.getAuthors", query = "SELECT DISTINCT b.book_author FROM Book b"),
+        @NamedQuery(name = "Book.getTitles", query = "SELECT DISTINCT b.book_name FROM Book b"),
+})
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

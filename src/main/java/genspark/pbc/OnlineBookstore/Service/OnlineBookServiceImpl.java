@@ -26,8 +26,23 @@ public class OnlineBookServiceImpl implements OnlineBookService{
     }
 
     @Override
+    public List<String> getAllBookTitles(){
+        return this.bookDAO.getTitles();
+    }
+
+    @Override
     public List<Book> getBookByAuthor(String bookAuthor) {
         return this.bookDAO.findByAuthor(bookAuthor);
+    }
+
+    @Override
+    public List<String> getAllBookAuthors(){
+        return this.bookDAO.getAuthors();
+    }
+
+    @Override
+    public List<Book> getBookSorted(){
+        return this.bookDAO.getAllBookSorted();
     }
 
     @Override

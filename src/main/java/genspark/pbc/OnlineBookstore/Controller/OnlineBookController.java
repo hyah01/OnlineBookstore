@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 public class OnlineBookController {
+    // automatically wire up beans (components) defined in application context and inject them into bs
     @Autowired
     public OnlineBookService bs;
 
@@ -20,20 +21,34 @@ public class OnlineBookController {
 
     // To get all the books Json
     @GetMapping("/Books")
-    public List<Book> getTasks(){
+    public List<Book> getBooks(){
         return this.bs.getAllBook();
+    }
+    @GetMapping("/Books/sorted")
+    public List<Book> getSortedBook(){
+        return this.bs.getBookSorted();
     }
 
     // Get Book Json based on name of the book
-    @GetMapping("/Books/name/{name}")
-    public List<Book> getBookByName(@PathVariable String name) {
-        return this.bs.getBookByName(name);
+    @GetMapping("/Books/title")
+    public List<Book> getBookByName(@RequestParam String title) {
+        return this.bs.getBookByName(title);
     }
 
-    // Get Book Json based on name of the author
-    @GetMapping("/Books/author/{author}")
-    public List<Book> getBookByAuthor(@PathVariable String author) {
+    @GetMapping("/Books/titles")
+    public List<String> getAllBookTitles() {
+        return this.bs.getAllBookTitles();
+    }
+
+    // Get Book Json based on name of the author   HOW TO USE (http://localhost:9090/Books/author?author=orw)
+    @GetMapping("/Books/author")
+    public List<Book> getBookByAuthor(@RequestParam String author) {
         return this.bs.getBookByAuthor(author);
+    }
+
+    @GetMapping("/Books/authors")
+    public List<String> getAllBookAuthors() {
+        return this.bs.getAllBookAuthors();
     }
 
     // Get Book Json based on ONE of the genre
