@@ -5,9 +5,11 @@ import genspark.pbc.OnlineBookstore.Entity.Book;
 import java.util.List;
 
 public interface OnlineBookService {
-    List<Book> getAllTask();
-    Book getTaskById(long taskId);
-    Book addTask(Book task);
-    Book updateTask(Book task);
-    String deleteTaskById(long taskId);
+    List<Book> getAllBook();
+    List<Book> getBookByName(String bookName);
+    List<Book> getBookByAuthor(String bookAuthor);
+    Book getBookById(long bookId);
+    Book addBook(Book book);
+    Book updateBook(Book book);
+    String deleteBookById(long bookId);
 }
